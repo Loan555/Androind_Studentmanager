@@ -6,120 +6,214 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical"-->
-<!--        android:weightSum="15">-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10"
+        tools:layout_editor_absoluteX="94dp"
+        tools:layout_editor_absoluteY="234dp">
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="#DF7401"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:weightSum="7">-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="5">
 
-<!--            <FrameLayout-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="6">-->
+                <TextView
+                    android:id="@+id/textName"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="Name" />
 
-<!--                <com.google.android.material.textfield.TextInputLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
+                <TextView
+                    android:id="@+id/textBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="Birth Year" />
 
-<!--                    <com.google.android.material.textfield.TextInputEditText-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:hint="Input" />-->
-<!--                </com.google.android.material.textfield.TextInputLayout>-->
-<!--            </FrameLayout>-->
-<!--            <FrameLayout-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_weight="1">-->
+                <TextView
+                    android:id="@+id/textPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="Phone Number" />
 
-<!--                <Button-->
-<!--                    android:textSize="10sp"-->
-<!--                    android:id="@+id/button7"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:text="Search" />-->
-<!--            </FrameLayout>-->
+                <TextView
+                    android:id="@+id/textSpecialized"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="Specialized" />
 
-<!--        </LinearLayout>-->
+                <TextView
+                    android:id="@+id/textTraining"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="Training System" />
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="#DF7401"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:weightSum="7">-->
-<!--            <Button-->
-<!--                android:layout_weight="1"-->
-<!--                android:id="@+id/addStudent"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:text="Add" />-->
-<!--            <Button-->
-<!--                android:layout_weight="1"-->
-<!--                android:id="@+id/button4"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:text="SortName" />-->
+            </LinearLayout>
 
-<!--            <Button-->
-<!--                android:layout_weight="1"-->
-<!--                android:id="@+id/button5"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:text="Sort Phone" />-->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:weightSum="5">
 
-<!--            <Button-->
-<!--                android:layout_weight="1"-->
-<!--                android:id="@+id/button3"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:text="Sort Birth"/>-->
+                <EditText
+                    android:text="Name"
+                    android:id="@+id/editTextPersonName7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName"/>
 
-<!--            <Button-->
-<!--                android:layout_weight="1"-->
-<!--                android:id="@+id/button2"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:text="Sort Esc" />-->
+                <EditText
+                    android:id="@+id/editTextDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"/>
 
+                <EditText
+                    android:id="@+id/editTextPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"/>
 
-<!--            <Button-->
-<!--                android:layout_weight="1"-->
-<!--                android:id="@+id/sortName"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:text="Uni"/>-->
+                <EditText
+                    android:id="@+id/editTextSpecialized"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
 
-<!--            <Button-->
-<!--                android:layout_weight="1"-->
-<!--                android:id="@+id/uni"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:text="NotUni"/>-->
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="154dp"
+                    android:layout_height="41dp"
+                    android:layout_marginStart="28dp"
+                    android:weightSum="2">
 
-<!--        </LinearLayout>-->
+                    <RadioButton
+                        android:id="@+id/radioButtonUni"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="University" />
 
-<!--        <FrameLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="13"-->
-<!--            >-->
+                    <RadioButton
+                        android:id="@+id/radioButtonCol"
+                        android:layout_width="260dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="College" />
+                </RadioGroup>
 
-<!--            <ListView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-<!--        </FrameLayout>-->
+            </LinearLayout>
 
-<!--    </LinearLayout>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <Button
+                android:id="@+id/buttonAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Add" />
+
+            <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Delete" />
+
+            <Button
+                android:id="@+id/buttonEdit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Edit" />
+
+            <Button
+                android:id="@+id/buttonSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Search" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <Button
+                android:id="@+id/buttonSortName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sort Name" />
+
+            <Button
+                android:id="@+id/buttonSortBirth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sort Birth" />
+
+            <Button
+                android:id="@+id/buttonSortPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sort PN" />
+
+            <Button
+                android:id="@+id/buttonSortEsp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sort E" />
+
+            <Button
+                android:id="@+id/buttonListTraining"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="System" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listViewStudent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

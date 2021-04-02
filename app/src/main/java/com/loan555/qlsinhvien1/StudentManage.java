@@ -1,6 +1,8 @@
 package com.loan555.qlsinhvien1;
 
+import android.text.BoringLayout;
 import android.util.Log;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,38 +30,7 @@ public class StudentManage {
     }
 
     //    --------------end get set---------
-    //---------------check input----------
-    public String inputName() {
-        //check input in here
-        String name = "name123";
-        return name;
-    }
 
-    public int inputBirthYear() {
-        //check input in here
-        int birthYear = 1999;
-        return birthYear;
-    }
-
-    public String inputPhoneNumber() {
-        //check input in here
-        String phoneNumber = "0332080038";
-        return phoneNumber;
-    }
-
-    public String inputSpecialized() {
-        //check input in here
-        String specialized = "Công nghệ dữ liệu";
-        return specialized;
-    }
-
-    public Boolean inputIsUniversity() {
-        //check input in here
-        Boolean university = true;
-        return university;
-    }
-
-    //------------end check input----------
 //    ------------------method-----------\
     public void show() {
         String result = "";
@@ -69,27 +40,18 @@ public class StudentManage {
         Log.d("Result", result);
     }
 
-    public void addStudent() {
-        String name = inputName();
-        int birth = inputBirthYear();
-        String phoneNumber = inputPhoneNumber();
-        String specialized = inputSpecialized();
-        Boolean uni = inputIsUniversity();
-        Student student = new Student(name, birth, phoneNumber, specialized, true);
-
+    public void addStudent(String name, int birth, String phoneNumber, String specialized, Boolean uni) {
+        Student student = new Student(name, birth, phoneNumber, specialized, uni);
         studentLs.add(student);
-
     }
 
-    public void editStudent(int ID) {
-        if (ID >= 0 && ID < this.studentLs.size()) {
-            this.studentLs.get(ID).setName("z ong 5");
-
-//            this.studentLs.get(ID).setName(inputName());
-            this.studentLs.get(ID).setBirth(inputBirthYear());
-            this.studentLs.get(ID).setPhoneNumber(inputPhoneNumber());
-            this.studentLs.get(ID).setSpecialized(inputSpecialized());
-            this.studentLs.get(ID).setUniversity(inputIsUniversity());
+    public void editStudent(int idStudent,String name, int birth, String phoneNumber, String specialized, Boolean uni) {
+        if (idStudent >= 0 && idStudent < this.studentLs.size()) {
+            this.studentLs.get(idStudent).setName(name);
+            this.studentLs.get(idStudent).setBirth(birth);
+            this.studentLs.get(idStudent).setPhoneNumber(phoneNumber);
+            this.studentLs.get(idStudent).setSpecialized(specialized);
+            this.studentLs.get(idStudent).setUniversity(uni);
             Log.d("Result", "Edit student success!");
         } else Log.d("Result", "Student need to edit is not exist!");
     }
