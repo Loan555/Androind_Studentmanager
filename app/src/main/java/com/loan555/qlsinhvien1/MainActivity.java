@@ -185,9 +185,26 @@ public class MainActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                studentManage.addStudent(inputName(), inputBirthYear(), inputPhoneNumber(), inputSpecialized(), inputIsUniversity());
-                ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.getStudentLs());
-                listViewStudent.setAdapter(adapter);
+                String name = inputName();
+                String phone = inputPhoneNumber().replaceAll("\\s+","");
+                String birth = ""+inputBirthYear();
+                String spe = inputSpecialized();
+                int count=0;
+                for(Student element : studentManage.getStudentLs()){
+                    if(element.getPhoneNumber().equals(phone)){
+                        count ++;
+                        break;
+                    }
+                }
+
+                if(count <= 0 && phone.matches("") == false && birth.matches("") == false && spe.matches("") == false){
+                    studentManage.addStudent(name, inputBirthYear(), phone, spe, inputIsUniversity());
+                    ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.getStudentLs());
+                    listViewStudent.setAdapter(adapter);
+                    mgs.setText("them thanh cong");
+                }else {
+                    mgs.setText("SDT da trung,tat ca cac truong phai not null"+count);
+                }
             }
         });
 

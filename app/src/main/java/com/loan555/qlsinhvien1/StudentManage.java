@@ -55,12 +55,7 @@ public class StudentManage {
             studentEdit.setSpecialized(specialized);
             studentEdit.setUniversity(uni);
             this.studentLs.set(idStudent,studentEdit);
-//
-//            this.studentLs.get(idStudent).setName(name);
-//            this.studentLs.get(idStudent).setBirth(birth);
-//            this.studentLs.get(idStudent).setPhoneNumber(phoneNumber);
-//            this.studentLs.get(idStudent).setSpecialized(specialized);
-//            this.studentLs.get(idStudent).setUniversity(uni);
+
             Log.d("Result", "Edit student success!");
         } else Log.d("Result", "Student need to edit is not exist!");
     }
@@ -74,9 +69,10 @@ public class StudentManage {
 
     public ArrayList<Student> searchStudent(String strSearch) {
         ArrayList<Student> studentArrayListSearch = new ArrayList<>();
-
+        strSearch = strSearch.toLowerCase();
         for (Student element : studentLs) {
-            if(element.getName().contains(strSearch) | element.getPhoneNumber().contains(strSearch) | element.getSpecialized().contains(strSearch) | (element.getBirth() + "").contains(strSearch))
+
+            if(element.getName().toLowerCase().contains(strSearch) | element.getPhoneNumber().toLowerCase().contains(strSearch) | element.getSpecialized().toLowerCase().contains(strSearch) | (element.getBirth() + "").replaceAll("\\s+","").contains(strSearch))
             {
                 studentArrayListSearch.add(element);
             }
