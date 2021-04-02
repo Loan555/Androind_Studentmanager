@@ -25,15 +25,14 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     ListView listViewStudent;
-    Button buttonAdd, btSortName, btSortBirth, btSortPhone, btSortEsp, btDelete;
-    EditText editTextName;
-    EditText editTextPhoneNumber;
-    EditText editTextBirth;
-    EditText editTextSpecial;
-    RadioButton university, college;
+    Button buttonAdd, btSortName, btSortBirth, btSortPhone, btSortEsp, btDelete, btSearch, btUpdate, btClassUni, btClassCol;
+    EditText editTextName, editTextPhoneNumber, editTextBirth, editTextSpecial, editTextSearch;
+    RadioGroup radioGroup;
     TextView mgs;
-    Boolean trainingSystem;
-    int idClickToDelete = -1;
+    Boolean trainingSystem = true;
+    int idClick = -1;
+    int checkRadioButton = R.id.radioButtonUni;
+    String phoneNumberClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +40,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ////        ------------------------Khoi tao
+        listViewStudent = (ListView) findViewById(R.id.listViewStudent);
+
+        mgs = (TextView) findViewById(R.id.textTraining);
+        editTextSearch = (EditText) findViewById((R.id.editTextSearch));
+        editTextName = (EditText) findViewById(R.id.editTextPersonName7);
+        editTextBirth = (EditText) findViewById(R.id.editTextDate);
+        editTextPhoneNumber = (EditText) findViewById(R.id.editTextPhone);
+        editTextSpecial = (EditText) findViewById(R.id.editTextSpecialized);
+
         btSortName = (Button) findViewById(R.id.buttonSortName);
         btSortBirth = (Button) findViewById(R.id.buttonSortBirth);
         btSortPhone = (Button) findViewById(R.id.buttonSortPhone);
         btSortEsp = (Button) findViewById(R.id.buttonSortEsp);
-        listViewStudent = (ListView) findViewById(R.id.listViewStudent);
         buttonAdd = (Button) findViewById(R.id.buttonAdd);
-        mgs = (TextView) findViewById(R.id.textTraining);
-        btDelete = (Button)findViewById(R.id.buttonDelete);
+        btDelete = (Button) findViewById(R.id.buttonDelete);
+        btSearch = (Button) findViewById(R.id.buttonSearch);
+        btUpdate = (Button) findViewById(R.id.buttonEdit);
+        btClassUni = (Button) findViewById(R.id.buttonListUni);
+        btClassCol = (Button) findViewById(R.id.buttonListCol);
+
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
 
         //---------------Nhap du lieu
-        Student st1 = new Student("Nguyễn Thị Loan", 1999, "0332080038", "Công nghệ dữ liệu", true);
-        Student st2 = new Student("Phạm Nhật Vượng", 1995, "0332080039", "Quản trị kinh doanh", true);
-        Student st3 = new Student("Bean Gate", 1998, "0123456789", "Kỹ Thuật Máy tính", false);
-        Student st4 = new Student("Jack Ma", 2004, "0987543216", "Kinh tế", false);
+        Student st1 = new Student("Adrew", 1999, "0332080038", "IT", true);
+        Student st2 = new Student("Pham Nhat Vuong", 1995, "0332080039", "re", true);
+        Student st3 = new Student("Bean Gate", 1998, "0123456789", "kt", false);
+        Student st4 = new Student("Jack Ma", 2004, "0987543216", "qtkd", false);
 
         ArrayList<Student> arr = new ArrayList<>();
         arr.add(st1);
@@ -65,101 +77,164 @@ public class MainActivity extends AppCompatActivity {
 
 ////        -------------------------create
         StudentManage studentManage = new StudentManage(arr);
+
+        studentManage.editStudent(0, "Hâm", 2000, "343546", "fsdfd", true);
         //------------------ Index
+        radioGroup.check(checkRadioButton);
+
         ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.getStudentLs());//tham soos: context: manf hinhf hieenr thij , dang layout no do ra,
         listViewStudent.setAdapter(arrayAdapter);//set adapter
 
 ////        ------------------------edit
-//        studentManage.editStudent(0);
+        btUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (idClick > -1 && idClick < studentManage.getStudentLs().size()) {
+                    studentManage.editStudent(idClick, inputName(), inputBirthYear(), inputPhoneNumber(), inputSpecialized(), inputIsUniversity());
+                    idClick = -1;
+                }
+                ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.getStudentLs());//tham soos: context: manf hinhf hieenr thij , dang layout no do ra,
+                listViewStudent.setAdapter(arrayAdapter);//set adapter
+            }
+        });
+//
 ////        ------------------------delete
         btDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(idClickToDelete>-1 && idClickToDelete<studentManage.getStudentLs().size()) {
-                    studentManage.deleteStudent(idClickToDelete);
-                    idClickToDelete = -1;
+                if (idClick > -1 && idClick < studentManage.getStudentLs().size()) {
+                    studentManage.deleteStudent(idClick);
+                    idClick = -1;
                 }
-                arrayAdapter.notifyDataSetChanged();
+                ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.getStudentLs());//tham soos: context: manf hinhf hieenr thij , dang layout no do ra,
+                listViewStudent.setAdapter(arrayAdapter);//set adapter
             }
         });
-//        studentManage.deleteStudent(1);
+
 ////        ------------------------search
-//        studentManage.searchStudent("kinh doanh");
+        btSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String strSearch = editTextSearch.getText().toString();
+                ArrayAdapter adapterSearch = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.searchStudent(strSearch));
+                listViewStudent.setAdapter(adapterSearch);
+            }
+        });
+
 ////        ------------------------sort name
         btSortName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 studentManage.sortStudentByName();
-                arrayAdapter.notifyDataSetChanged();
+                ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.getStudentLs());
+                listViewStudent.setAdapter(adapter);
             }
         });
+
 //        ---------------------sort birth
         btSortBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 studentManage.sortStudentByBirthYear();
-                arrayAdapter.notifyDataSetChanged();
+                ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.getStudentLs());
+                listViewStudent.setAdapter(adapter);
+//                arrayAdapter.notifyDataSetChanged();
             }
         });
+
 //        ------------------------sort phone
         btSortPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 studentManage.sortStudentByPhoneNumber();
-                arrayAdapter.notifyDataSetChanged();
+                ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.getStudentLs());
+                listViewStudent.setAdapter(adapter);
+//                arrayAdapter.notifyDataSetChanged();
             }
         });
+
 //        ---------------------------sort esp
         btSortEsp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 studentManage.sortStudentBySpecialized();
-                arrayAdapter.notifyDataSetChanged();
+                ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.getStudentLs());
+                listViewStudent.setAdapter(adapter);
+//                arrayAdapter.notifyDataSetChanged();
             }
         });
 
 ////--------------------------------classify
-//        studentManage.classifyStudent(true);//tra ve danh sach sv la dai hoc
-//        studentManage.classifyStudent(false);//tra ve danh sach sv la cao dang
+        btClassUni.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.classifyStudent(true));
+                listViewStudent.setAdapter(arrayAdapter);
+            }
+        });
 
+        btClassCol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.classifyStudent(false));
+                listViewStudent.setAdapter(arrayAdapter);
+            }
+        });
 
 //        -----------------------ButtonAddClick
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 studentManage.addStudent(inputName(), inputBirthYear(), inputPhoneNumber(), inputSpecialized(), inputIsUniversity());
-                arrayAdapter.notifyDataSetChanged();
+                ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, studentManage.getStudentLs());
+                listViewStudent.setAdapter(adapter);
             }
         });
-
 
 //-----------ItemClick
         listViewStudent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String rs="click!";
-                Log.d("Result",rs);
-                mgs.setText(studentManage.getStudentLs().get(position).getName());
-                idClickToDelete = position;
-                //editTextName.setText("studentManage.getStudentLs().get(position).getName()");
-            }
-        });
+                String rs = "click!";
+                Log.d("Result", rs);
+                idClick = position;
 
-        listViewStudent.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Long click", Toast.LENGTH_SHORT).show();
-                return false;
+                mgs.setText("id = " + idClick+"/" );
+
+                editTextPhoneNumber.setText(studentManage.getStudentLs().get(position).getPhoneNumber().toString());
+                editTextName.setText(studentManage.getStudentLs().get(position).getName().toString());
+                editTextBirth.setText("" + studentManage.getStudentLs().get(position).getBirth());
+                editTextSpecial.setText(studentManage.getStudentLs().get(position).getSpecialized().toString());
+
+                trainingSystem = studentManage.getStudentLs().get(position).getUniversity();
+
+                if (trainingSystem) {
+                    checkRadioButton = R.id.radioButtonUni;
+                } else
+                    checkRadioButton = R.id.radioButtonCol;
+                radioGroup.check(checkRadioButton);
+
             }
         });
 
         //------------radioButton----------
 
-        university = (RadioButton) findViewById(R.id.radioButtonUni);
-        college = (RadioButton) findViewById(R.id.radioButtonCol);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radioButtonUni: {
+                        trainingSystem = true;
+                    }
+                    break;
+                    case R.id.radioButtonCol: {
+                        trainingSystem = false;
+                    }
+                    break;
+                }
+            }
+        });
 
-        university.setOnCheckedChangeListener(listener);
-        college.setOnCheckedChangeListener(listener);
     }
 
     //---------------check input----------
@@ -177,28 +252,24 @@ public class MainActivity extends AppCompatActivity {
 
     public String inputName() {
         //check input in here
-        editTextName = (EditText) findViewById(R.id.editTextPersonName7);
         String name = editTextName.getText().toString();
         return name;
     }
 
     public int inputBirthYear() {
         //check input in here
-        editTextBirth = (EditText) findViewById(R.id.editTextDate);
         int birthYear = Integer.parseInt(editTextBirth.getText().toString());
         return birthYear;
     }
 
     public String inputPhoneNumber() {
         //check input in here
-        editTextPhoneNumber = (EditText) findViewById(R.id.editTextPhone);
         String phoneNumber = editTextPhoneNumber.getText().toString();
         return phoneNumber;
     }
 
     public String inputSpecialized() {
         //check input in here
-        editTextSpecial = (EditText) findViewById(R.id.editTextSpecialized);
         String specialized = editTextSpecial.getText().toString();
         return specialized;
     }

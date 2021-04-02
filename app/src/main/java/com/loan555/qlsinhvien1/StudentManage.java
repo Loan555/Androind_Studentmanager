@@ -46,12 +46,21 @@ public class StudentManage {
     }
 
     public void editStudent(int idStudent,String name, int birth, String phoneNumber, String specialized, Boolean uni) {
+
         if (idStudent >= 0 && idStudent < this.studentLs.size()) {
-            this.studentLs.get(idStudent).setName(name);
-            this.studentLs.get(idStudent).setBirth(birth);
-            this.studentLs.get(idStudent).setPhoneNumber(phoneNumber);
-            this.studentLs.get(idStudent).setSpecialized(specialized);
-            this.studentLs.get(idStudent).setUniversity(uni);
+            Student studentEdit = new Student();
+            studentEdit.setName(name);
+            studentEdit.setBirth(birth);
+            studentEdit.setPhoneNumber(phoneNumber);
+            studentEdit.setSpecialized(specialized);
+            studentEdit.setUniversity(uni);
+            this.studentLs.set(idStudent,studentEdit);
+//
+//            this.studentLs.get(idStudent).setName(name);
+//            this.studentLs.get(idStudent).setBirth(birth);
+//            this.studentLs.get(idStudent).setPhoneNumber(phoneNumber);
+//            this.studentLs.get(idStudent).setSpecialized(specialized);
+//            this.studentLs.get(idStudent).setUniversity(uni);
             Log.d("Result", "Edit student success!");
         } else Log.d("Result", "Student need to edit is not exist!");
     }
@@ -63,18 +72,16 @@ public class StudentManage {
         } else Log.d("Result", "Student need to delete is not exist!");
     }
 
-    public void searchStudent(String strSearch) {
+    public ArrayList<Student> searchStudent(String strSearch) {
+        ArrayList<Student> studentArrayListSearch = new ArrayList<>();
+
         for (Student element : studentLs) {
-            if (element.getName().contains(strSearch)) {
-                Log.d("Result", element.toString());
-            } else if (element.getPhoneNumber().contains(strSearch)) {
-                Log.d("Result", element.toString());
-            } else if (element.getSpecialized().contains(strSearch)) {
-                Log.d("Result", element.toString());
-            } else if ((element.getBirth() + "").contains(strSearch)) {
-                Log.d("Result", element.toString());
+            if(element.getName().contains(strSearch) | element.getPhoneNumber().contains(strSearch) | element.getSpecialized().contains(strSearch) | (element.getBirth() + "").contains(strSearch))
+            {
+                studentArrayListSearch.add(element);
             }
         }
+        return studentArrayListSearch;
     }
 
     public ArrayList<Student> classifyStudent(Boolean isUniversity) {
